@@ -5,11 +5,21 @@ __lua__
 
 function _init()
 	boatsprites = {1,2,3}
-	playersprite = 240
+	playersprite = 241
 	boatleftx = 1
 	boaty = 8
 	playerx = 4
 	playery = 7
+	waterlevel = boaty*8+4
+	
+	 --underwater palette array
+ local palarr={[0]=129,1,1,1,1,1,140,12,131,140,12,12,131,140,140,12}
+  
+ --apply secondary display pal
+ pal(palarr,2)
+ 
+ --turn on the sec disp pal
+ poke(0x5f5f,0x10)
 end
 
 function _update()
@@ -18,8 +28,11 @@ end
 
 function _draw()
 	cls()
+	rectfill(0,0,128,waterlevel-1,12)
+	circfill(8,8,8,10)
 	drawboat()
 	drawplayer()
+	drawwater()
 end
 
 function drawboat()
@@ -30,6 +43,28 @@ end
 
 function drawplayer()
 	spr(playersprite,8*playerx,8*playery)
+end
+
+function setwaterlevel(lvly)
+ --renders everything below
+ --lvly in secondary disp pal
+ for i=0,15 do
+  local mypoke,dif=0,lvly-i*8
+  if dif<=0 then
+   mypoke=0xff
+  elseif dif<8 then
+   mypoke=tonum(sub("0b11111111",1,10-dif)..sub("00000000",1,dif))
+  end
+  poke(0x5f70+i,mypoke)
+ end
+end
+
+function drawwater()
+	setwaterlevel(waterlevel)
+	--draw wavy surface
+ for x=0,127 do
+  pset(x,waterlevel+sin(x/8+time()*2)/2,1)
+ end
 end
 __gfx__
 00000000555555555555555555555555000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
