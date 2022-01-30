@@ -28,12 +28,15 @@ end
 
 function _draw()
 	cls()
-	rectfill(0,0,128,waterlevel-1,12)
-	circfill(8,8,8,10)
+	drawsky()
 	drawboat()
 	drawplayer()
 	drawwater()
 end
+
+
+-->8
+--draw
 
 function drawboat()
 	for i = 1, count(boatsprites) do
@@ -66,6 +69,17 @@ function drawwater()
   pset(x,waterlevel+sin(x/8+time()*2)/2,1)
  end
 end
+
+function drawsky()
+	rectfill(0,0,128,waterlevel-1,12)
+	circfill(8,8,8,10)
+end
+-->8
+--update
+-->8
+--init
+-->8
+--helpers
 __gfx__
 00000000555555555555555555555555000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000566666666666666666666650000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
