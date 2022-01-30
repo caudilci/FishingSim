@@ -1,5 +1,36 @@
 pico-8 cartridge // http://www.pico-8.com
 version 33
+__lua__
+-- game
+
+function _init()
+	boatsprites = {1,2,3}
+	playersprite = 240
+	boatleftx = 1
+	boaty = 8
+	playerx = 4
+	playery = 7
+end
+
+function _update()
+
+end
+
+function _draw()
+	cls()
+	drawboat()
+	drawplayer()
+end
+
+function drawboat()
+	for i = 1, count(boatsprites) do
+		spr(boatsprites[i],boatleftx * 8 + i * 8, 8 * boaty)
+	end
+end
+
+function drawplayer()
+	spr(playersprite,8*playerx,8*playery)
+end
 __gfx__
 00000000555555555555555555555555000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000566666666666666666666650000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
