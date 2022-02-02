@@ -6,15 +6,15 @@ __lua__
 function _init()
 	--boat/scene
 	boatsprites = {1,2,3}
-	boatleftx = 1
-	boaty = 8
-	waterlevel = boaty*8+4
+	boatleftx = 8
+	boaty = 64
+	waterlevel = boaty+4
 	
 	--player
 	playersprite = 241
-	playerx = 4
-	playery = 7
-	rodtipx, rodtipy = playerx*8+8, playery*8+2
+	playerx = 32
+	playery = 56
+	rodtipx, rodtipy = playerx+8, playery+2
 	
 	--bobber
 	bobbersprite = 224
@@ -49,12 +49,12 @@ end
 
 function drawboat()
 	for i = 1, count(boatsprites) do
-		spr(boatsprites[i],boatleftx * 8 + i * 8, 8 * boaty)
+		spr(boatsprites[i],boatleftx + i * 8, boaty)
 	end
 end
 
 function drawplayer()
-	spr(playersprite,8*playerx,8*playery)
+	spr(playersprite,playerx,playery)
 end
 
 function setwaterlevel(lvly)
